@@ -1,13 +1,24 @@
 <template>
-  <div class="post" v-for="post in posts">
-    <div><strong>Name: </strong>{{post.name}}</div>
-    <div><strong>Description: </strong> {{post.body}}</div>
+  <div class="app">
+    <post-form
+        @create="createPost"
+    />
+    <post-list
+        v-bind:posts="posts"
+        @remove="removePost"
+    />
   </div>
 </template>
 
 <script>
+import PostForm from "@/components/PostForm"
+import PostList from "@/components/PostList"
+
 export default {
-  data () {
+  components: {
+    PostForm, PostList
+  },
+  data() {
     return {
       posts: [
         {id: 1, name: 'JS is a single flow dynamic typical language', body: "Description 1"},
@@ -17,11 +28,11 @@ export default {
     }
   },
   methods: {
-    addLike (){
-      this.likes += 1
+    createPost (post, second, third){
+      this.posts.push(post)
     },
-    addDislike (){
-     this.dislikes += 1
+    removePost(post) {
+      this.posts = this.posts.filter(p => p.id !== post.id)
     }
   }
 }
@@ -34,10 +45,10 @@ export default {
   padding: 0;
 }
 
-.post {
-  margin-top: 15px;
-  padding: 15px;
-  border: 1px solid teal;
+.app {
+  padding: 20px;
 }
+
+
 </style>
 
