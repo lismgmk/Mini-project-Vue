@@ -81,11 +81,18 @@ export default {
       }
     },
     setSelected(){
-      console.log(this.optionValue)
+      // console.log(this.optionValue)
     }
   },
   mounted() {
     this.fetchPosts()
+  },
+  watch: {
+    optionValue(newValue) {
+      this.posts.sort((a,b) => {
+        return a[this.optionValue]?.localeCompare(b[this.optionValue])
+      })
+    }
   }
 }
 </script>
