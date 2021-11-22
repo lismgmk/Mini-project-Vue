@@ -2,7 +2,7 @@
   <form @submit.prevent>
     <h4>Create post</h4>
     <my-input
-        v-model="post.name"
+        v-model="post.title"
         type="text"
         placeholder="Title posts"
     />
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     createPost() {
-      this.$emit('create', this.post, 'second_params', 'third_params')
+      this.$emit('create', this.post)
       this.post = {
         title: '',
         body: '',
