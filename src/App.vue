@@ -20,7 +20,7 @@
     <div v-if="!loading">
       <post-list
           v-if="posts.length > 0"
-          v-bind:posts="posts"
+          v-bind:posts="sortedPosts"
           @remove="removePost"
       />
       <h4 class="app__empty-list" v-else>This list is empty</h4>
@@ -87,13 +87,13 @@ export default {
   mounted() {
     this.fetchPosts()
   },
-  watch: {
-    optionValue(newValue) {
-      this.posts.sort((a,b) => {
+  computed : {
+    sortedPosts() {
+     return [...this.posts].sort((a,b) => {
         return a[this.optionValue]?.localeCompare(b[this.optionValue])
       })
     }
-  }
+  },
 }
 </script>
 
