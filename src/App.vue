@@ -1,8 +1,9 @@
 <template>
   <div class="app">
-    <div>
+    <div class="app__block">
       <my-button @click="addPost">Add post</my-button>
       <my-select
+          style="height: 40px"
           v-bind:options="optionsData"
           v-model:modelValue="optionValue"
           @update:model-value="setSelected"
@@ -24,6 +25,7 @@
     <div v-if="!loading">
 
       <post-list
+          style="margin-top: 20px"
           v-if="posts.length > 0"
           v-bind:posts="sortSearch"
           @remove="removePost"
@@ -35,7 +37,7 @@
       <div
           class="pagination__item"
           :key="pageNum"
-          @click="changePage"
+          @click="changePage(pageNum)"
           v-for="pageNum in totalPage"
           :class="{current_page: pageNum === page}"
       >{{ pageNum }}
@@ -88,8 +90,8 @@ export default {
     closeDialog() {
       this.showDialog = false
     },
-    changePage (){
-
+    changePage(page) {
+      this.page = page
     },
     async fetchPosts() {
       try {
@@ -103,7 +105,7 @@ export default {
           })
           this.posts = response.data
           this.loading = false
-          this.totalPage = Math.ceil(response.headers['x-total-count']/this.limit)
+          this.totalPage = Math.ceil(response.headers['x-total-count'] / this.limit)
         }, 2000)
 
       } catch (e) {
@@ -116,6 +118,11 @@ export default {
   },
   mounted() {
     this.fetchPosts()
+  },
+  watch: {
+    page(){
+      this.fetchPosts()
+    }
   },
   computed: {
     sortedPosts() {
@@ -142,22 +149,30 @@ export default {
 .app {
   padding: 20px;
 }
-
+.app__block{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
 .app__empty-list {
   color: red;
 }
 
 .pagination__wrapper {
   display: flex;
-margin-top: 15px;
+  margin-top: 15px;
 }
+
 .pagination__item {
   border: 1px solid black;
-padding: 10px;
+  padding: 10px;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 .current_page {
   color: teal;
+  border: 2px solid teal;
 }
 </style>
 
