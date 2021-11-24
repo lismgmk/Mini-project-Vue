@@ -1,12 +1,12 @@
 <template>
-  <div>
+
     <input
         class="input"
         type="text"
         :value="modelValue"
         @input="updateInput"
     >
-  </div>
+
 </template>
 <script>
 export default {
