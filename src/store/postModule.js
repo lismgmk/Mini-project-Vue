@@ -32,8 +32,8 @@ export const postModule = {
         setLoading(state, loading) {
             state.loading = loading
         },
-        setOptionsData(state, optionValue) {
-            state.optionsData = optionValue
+        setOptionValue(state, optionValue) {
+            state.optionValue = optionValue
         },
         setSearchQuery(state, searchQuery) {
             state.searchQuery = searchQuery

@@ -4,9 +4,9 @@
       <my-button @click="addPost">Add post</my-button>
       <my-select
           style="height: 40px"
-          :options="optionValue"
-          v-model:modelValue="optionsData"
-          @update:model-value="setOptionsData"
+          :options="optionsData"
+          v-model:modelValue="optionValue"
+          @update:model-value="setOptionValue"
       />
     </div>
     <my-input
@@ -70,7 +70,7 @@ export default {
     ...mapMutations({
       setPage: 'posts/setPage',
       setSearchQuery: 'posts/setSearchQuery',
-      setOptionsData: 'posts/setOptionsData'
+      setOptionValue: 'posts/setOptionValue'
     }),
     ...mapActions({
       fetchPosts: 'posts/fetchPosts',
